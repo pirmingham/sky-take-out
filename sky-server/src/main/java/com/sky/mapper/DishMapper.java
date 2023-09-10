@@ -31,11 +31,33 @@ public interface DishMapper {
     @CommonFieldsAutoFill(OperationType.INSERT)
     void insert(Dish dish);
 
+    /**
+     * 菜品分页查询
+     * @param dishPageQueryDTO
+     * @return
+     */
     Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
+    /**
+     * 根据ID查询dish菜品
+     * @param id
+     * @return
+     */
     @Select("select * from dish where id = #{id}")
     Dish getById(Long id);
 
+    /**
+     * 根据ID删dish菜品
+     * @param id
+     */
     @Delete("delete from dish where id = #{id}")
     void deleteById(Long id);
+
+
+    /**
+     * 根据ID动态修改菜品表
+     * @param dish
+     */
+    @CommonFieldsAutoFill(OperationType.UPDATE)
+    void update(Dish dish);
 }
