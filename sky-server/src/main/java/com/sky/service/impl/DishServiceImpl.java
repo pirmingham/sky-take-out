@@ -134,6 +134,7 @@ public class DishServiceImpl implements DishService {
 
     /**
      * 根据分类Id查找到启用的菜品列表
+     *
      * @param categoryId
      * @return
      */
@@ -144,5 +145,20 @@ public class DishServiceImpl implements DishService {
                 .status(StatusConstant.ENABLE)
                 .build();
         return dishMapper.list(dish);
+    }
+
+    /**
+     * 启用或停用某个菜品
+     *
+     * @param status
+     * @param id
+     */
+    @Override
+    public void enableOrDisable(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+        dishMapper.update(dish);
     }
 }

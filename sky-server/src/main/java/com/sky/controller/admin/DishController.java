@@ -99,4 +99,10 @@ public class DishController {
         List<Dish> dishList = dishService.list(categoryId);
         return Result.success(dishList);
     }
+
+    @PostMapping("/status/{status}")
+    public Result enableOrDisable(@PathVariable Integer status, Long id) {
+        dishService.enableOrDisable(status,id);
+        return Result.success();
+    }
 }
