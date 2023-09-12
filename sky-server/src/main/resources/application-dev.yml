@@ -12,7 +12,10 @@ sky:
     access-key-secret: aQltzJU4ICvPeuj9dw09RtDGvIsrsX
     bucket-name: pirmingham-sky-take-out
   redis:
-    host: 10.211.55.3
+    host: 10.211.55.5
     port: 6379
     password: 123456
     database: 0
+  wechat:
+    appid: wxf6eb870029fc1cc8
+    secret: a08c8c46ca935fbd8058eb6ce1b18545
