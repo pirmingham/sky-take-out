@@ -81,7 +81,7 @@ public class SetmealServiceImpl implements SetmealService {
     @Transactional
     public void deleteBatch(List<Long> ids) {
         for (Long id : ids) {
-            Setmeal setmeal = setmealMapper.selectById(id);
+            Setmeal setmeal = setmealMapper.getById(id);
             if (setmeal.getStatus() == StatusConstant.ENABLE) {
                 throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
             }
@@ -103,7 +103,7 @@ public class SetmealServiceImpl implements SetmealService {
      */
     @Override
     public SetmealVO getByIdWithDish(Long id) {
-        Setmeal setmeal = setmealMapper.selectById(id);
+        Setmeal setmeal = setmealMapper.getById(id);
         List<SetmealDish> setmealDishes = setmealDishMapper.getDishListBySetmealId(id);
         SetmealVO setmealVO = new SetmealVO();
         BeanUtils.copyProperties(setmeal, setmealVO);
