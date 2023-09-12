@@ -69,4 +69,11 @@ public interface DishService {
      * @return
      */
     List<DishVO> listWithFlavor(Dish dish);
+
+    /**
+     * 根据菜品id查询分类ID，用于redis清理
+     * @param id
+     * @return
+     */
+    Long getCategoryIdById(Long id);
 }

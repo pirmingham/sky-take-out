@@ -185,4 +185,14 @@ public class DishServiceImpl implements DishService {
 
         return dishVOList;
     }
+
+    /**
+     * 根据菜品id查询分类ID，用于redis清理
+     * @param id
+     * @return
+     */
+    @Override
+    public Long getCategoryIdById(Long id) {
+        return dishMapper.getCategoryIdById(id);
+    }
 }
