@@ -11,3 +11,8 @@ sky:
     access-key-id: LTAI5tCTNWWyzHnFK3sCnbGA
     access-key-secret: aQltzJU4ICvPeuj9dw09RtDGvIsrsX
     bucket-name: pirmingham-sky-take-out
+  redis:
+    host: 10.211.55.3
+    port: 6379
+    password: 123456
+    database: 0
