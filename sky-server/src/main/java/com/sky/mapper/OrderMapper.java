@@ -1,29 +1,14 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
+import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
-import com.sky.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface UserMapper {
-
-    /**
-     * 根据openid查询用户
-     *
-     * @return
-     */
-    @Select("select * from user where openid = #{openid}")
-    User getByOpenId(String openid);
-
-
-    /**
-     * 插入数据
-     * @param user
-     */
-    void insert(User user);
-
-
+public interface OrderMapper {
+    void insert(Orders orders);
     /**
      * 根据订单号查询订单
      * @param orderNumber
@@ -37,6 +22,8 @@ public interface UserMapper {
      */
     void update(Orders orders);
 
-    @Select("select * from user where id=#{userId}")
-    User getById(Long userId);
+    Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
+
+    @Select("select * from orders where id=#{order_id}")
+    Orders getById(Long orderId);
 }
