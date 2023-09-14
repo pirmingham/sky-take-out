@@ -403,4 +403,25 @@ public class OrderServiceImpl implements OrderService {
         orders.setId(ordersInDB.getId());
         orderMapper.update(orders);
     }
+
+    /**
+     * 派送订单
+     *
+     * @param id
+     */
+    @Override
+    public void delivery(Long id) {
+        //根据ID查询订单
+        Orders orderInDB = orderMapper.getById(id);
+        //订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
+        // 校验订单是否存在，并且状态为3
+        if (orderInDB == null || orderInDB.getStatus() != Orders.CONFIRMED) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+        Orders orders = new Orders();
+        orders.setId(orderInDB.getId());
+        // 更新订单状态,状态转为派送中
+        orders.setStatus(Orders.DELIVERY_IN_PROGRESS);
+        orderMapper.update(orders);
+    }
 }
