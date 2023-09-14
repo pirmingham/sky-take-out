@@ -1,5 +1,6 @@
 package com.sky.service;
 
+import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
@@ -48,6 +49,7 @@ public interface OrderService {
 
     /**
      * 根据订单ID查询订单详情
+     *
      * @param orderId
      * @return
      */
@@ -55,18 +57,21 @@ public interface OrderService {
 
     /**
      * 用户取消订单
+     *
      * @param orderId
      */
     void userCancelById(Long orderId) throws Exception;
 
     /**
      * 再来一单
+     *
      * @param orderId
      */
     void repetition(Long orderId);
 
     /**
      * 管理端-订单条件查询
+     *
      * @param ordersPageQueryDTO
      * @return
      */
@@ -74,7 +79,15 @@ public interface OrderService {
 
     /**
      * 管理端-统计订单数据
+     *
      * @return
      */
     OrderStatisticsVO statistics();
+
+    /**
+     * 接单
+     *
+     * @param ordersConfirmDTO
+     */
+    void confirm(OrdersConfirmDTO ordersConfirmDTO);
 }
