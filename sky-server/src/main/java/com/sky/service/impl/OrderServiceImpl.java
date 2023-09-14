@@ -383,4 +383,24 @@ public class OrderServiceImpl implements OrderService {
 
         orderMapper.update(orders);
     }
+
+    @Override
+    public void cancel(OrdersCancelDTO ordersCancelDTO) throws Exception {
+        Orders ordersInDB = orderMapper.getById(ordersCancelDTO.getId());
+        //    * 订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
+        if (ordersInDB == null) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        if (ordersInDB.getPayStatus() == Orders.PAID) {
+            log.info("模拟退款");
+        }
+        // 管理端取消订单需要退款，根据订单id更新订单状态、取消原因、取消时间
+        Orders orders = new Orders();
+        orders.setCancelReason(ordersCancelDTO.getCancelReason());
+        orders.setStatus(Orders.CANCELLED);
+        orders.setCancelTime(LocalDateTime.now());
+        orders.setId(ordersInDB.getId());
+        orderMapper.update(orders);
+    }
 }
