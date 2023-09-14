@@ -9,8 +9,10 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface OrderMapper {
     void insert(Orders orders);
+
     /**
      * 根据订单号查询订单
+     *
      * @param orderNumber
      */
     @Select("select * from orders where number = #{orderNumber}")
@@ -18,6 +20,7 @@ public interface OrderMapper {
 
     /**
      * 修改订单信息
+     *
      * @param orders
      */
     void update(Orders orders);
@@ -26,4 +29,7 @@ public interface OrderMapper {
 
     @Select("select * from orders where id=#{order_id}")
     Orders getById(Long orderId);
+
+    @Select("select count(id) from orders where status=#{status}")
+    Integer countByStatus(Integer status);
 }
