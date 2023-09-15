@@ -68,7 +68,6 @@ public class OrderController {
     /**
      * 根据订单id获取订单详情
      *
-     * @param orderId
      * @return
      */
     @GetMapping("/orderDetail/{orderId}")
@@ -99,6 +98,17 @@ public class OrderController {
     @ApiOperation("再来一单")
     public Result repetition(@PathVariable Long orderId) {
         orderService.repetition(orderId);
+        return Result.success();
+    }
+
+    /**
+     * 客户催单
+     */
+    @GetMapping("/reminder/{orderId}")
+    @ApiOperation("客户催单")
+    public Result reminder(@PathVariable Long orderId) {
+        log.info("催单:{}", orderId);
+        orderService.reminder(orderId);
         return Result.success();
     }
 }

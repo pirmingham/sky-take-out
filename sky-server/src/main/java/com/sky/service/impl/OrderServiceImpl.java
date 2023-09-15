@@ -534,4 +534,22 @@ public class OrderServiceImpl implements OrderService {
             throw new OrderBusinessException("超出配送范围");
         }
     }
+
+    @Override
+    public void reminder(Long orderId) {
+        // 根据id查询订单
+        Orders ordersDB = orderMapper.getById(orderId);
+        // 订单状态 1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
+        // 校验订单是否存在，并且状态为4
+        if (ordersDB == null) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+        Map map = new HashMap();
+        map.put("type", 2);//1表示来单提醒 2表示客户催单
+        map.put("orderId", orderId);
+        map.put("content", "订单号：" + ordersDB.getNumber());
+        //通过WebSocket向客户端浏览器推送消息
+        webSocketServer.sendToAllClient(JSONObject.toJSONString(map));
+
+    }
 }
