@@ -52,3 +52,7 @@ sky:
   wechat:
     appid: ${sky.wechat.appid}
     secret: ${sky.wechat.secret}
+  shop:
+    address: 四川省德阳市绵竹市安国街富康银杏华庭2栋4单元502
+  baidu:
+    ak: EiGDlbrrgSZ5T56eIQ63Ro0lcEERYWDv
