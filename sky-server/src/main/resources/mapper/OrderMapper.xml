@@ -95,4 +95,17 @@
             </if>
         </where>
     </select>
+    <select id="getSalesTop10" resultType="com.sky.dto.GoodsSalesDTO">
+
+        SELECT order_detail.`name`,SUM(order_detail.number) number FROM order_detail INNER JOIN orders WHERE
+        orders.id = order_detail.order_id AND `status`=5
+        <if test="begin">
+            AND orders.order_time &gt; #{begin}
+        </if>
+        <if test="end">
+            AND orders.order_time &lt;#{end}
+        </if>
+        GROUP BY order_detail.`name`
+        ORDER BY number DESC LIMIT 0,10;
+    </select>
 </mapper>
