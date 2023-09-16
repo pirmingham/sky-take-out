@@ -43,4 +43,6 @@ public interface OrderMapper {
 
 //    @Select("select sum(amount) from orders where status=#{status} and order_time>#{begin} and order_tim<#{end}")
     Double sumByMap(Map map);
+
+    Integer countByMap(Map map);
 }
