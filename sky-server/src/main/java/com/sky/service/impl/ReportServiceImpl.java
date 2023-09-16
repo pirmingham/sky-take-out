@@ -41,15 +41,9 @@ public class ReportServiceImpl implements ReportService {
 
         //当前集合用于存放从begin开始到end结束的范围内，每天的日期
         List<LocalDate> dateList = new ArrayList<>();
-        dateList.add(begin);
-        while (!begin.equals(end)) {
-            begin = begin.plusDays(1);
-            dateList.add(begin);
-        }
-        dateList.add(end);
+        String dateListStr = getDateListStr(begin, end, dateList);
         //计算出日期
         List<Double> turnoverList = new ArrayList<>();
-        String dateListStr = StringUtils.join(dateList, ",");
         for (LocalDate date : dateList) {
             //查询date日期对应的营业额数据，营业额是指：状态为"已完成"的订单金额合计；
             LocalDateTime beginTime = LocalDateTime.of(date, LocalTime.MIN);
@@ -79,13 +73,7 @@ public class ReportServiceImpl implements ReportService {
     public UserReportVO getUserStatistics(LocalDate begin, LocalDate end) {
         //当前集合用于存放从begin开始到end结束的范围内，每天的日期
         List<LocalDate> dateList = new ArrayList<>();
-        dateList.add(begin);
-        while (!begin.equals(end)) {
-            begin = begin.plusDays(1);
-            dateList.add(begin);
-        }
-        dateList.add(end);
-        String dateListStr = StringUtils.join(dateList, ",");
+        String dateListStr = getDateListStr(begin, end, dateList);
         //统计每天的新增用户数量 select count(id) from user create_time<? and create_time>?
         List<Integer> newUserList = new ArrayList<>();
         //统计每天的总用户数量 select count(id) from user create_time<?
@@ -122,13 +110,7 @@ public class ReportServiceImpl implements ReportService {
     public OrderReportVO getOrdersStatistics(LocalDate begin, LocalDate end) {
         //当前集合用于存放从begin开始到end结束的范围内，每天的日期
         List<LocalDate> dateList = new ArrayList<>();
-        dateList.add(begin);
-        while (!begin.equals(end)) {
-            begin = begin.plusDays(1);
-            dateList.add(begin);
-        }
-        dateList.add(end);
-        String dateListStr = StringUtils.join(dateList, ",");
+        String dateListStr = getDateListStr(begin, end, dateList);
         //存放每天的订单总数
         List<Integer> orderCountList = new ArrayList<>();
         //存放每天的有效订单数
@@ -164,6 +146,23 @@ public class ReportServiceImpl implements ReportService {
                 .totalOrderCount(totalOrderCount)
                 .orderCompletionRate(orderCompletionRate)
                 .build();
+    }
+
+    /**
+     * 获取日期字符串
+     * @param begin
+     * @param end
+     * @param dateList
+     * @return
+     */
+    private String getDateListStr(LocalDate begin, LocalDate end, List<LocalDate> dateList) {
+        dateList.add(begin);
+        while (!begin.equals(end)) {
+            begin = begin.plusDays(1);
+            dateList.add(begin);
+        }
+        dateList.add(end);
+        return StringUtils.join(dateList, ",");
     }
 
 }
